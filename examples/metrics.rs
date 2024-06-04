@@ -1,12 +1,12 @@
 use anyhow::Result;
 use rand::Rng;
 use std::{thread, time::Duration};
-use wconcurrency::Metrics;
+use wconcurrency::CMetrics;
 
 const N: usize = 2;
 const M: usize = 4;
 fn main() -> Result<()> {
-    let metrics = Metrics::new();
+    let metrics = CMetrics::new();
 
     // println!("{:?}", metrics.snapshot());
 
@@ -26,7 +26,7 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-fn task_worker(idx: usize, metrics: Metrics) -> Result<()> {
+fn task_worker(idx: usize, metrics: CMetrics) -> Result<()> {
     thread::spawn(move || {
         loop {
             let mut rng = rand::thread_rng();
@@ -39,7 +39,7 @@ fn task_worker(idx: usize, metrics: Metrics) -> Result<()> {
     Ok(())
 }
 
-fn request_woker(metrics: Metrics) -> Result<()> {
+fn request_woker(metrics: CMetrics) -> Result<()> {
     thread::spawn(move || {
         loop {
             let mut rng = rand::thread_rng();

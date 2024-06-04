@@ -3,11 +3,11 @@ use dashmap::DashMap;
 use std::{fmt, sync::Arc};
 
 #[derive(Debug, Clone)]
-pub struct Metrics {
+pub struct CMetrics {
     data: Arc<DashMap<String, i64>>,
 }
 
-impl Metrics {
+impl CMetrics {
     pub fn new() -> Self {
         Self {
             data: Arc::new(DashMap::new()),
@@ -31,13 +31,13 @@ impl Metrics {
     }
 }
 
-impl Default for Metrics {
+impl Default for CMetrics {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl fmt::Display for Metrics {
+impl fmt::Display for CMetrics {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for entry in self.data.iter() {
             write!(f, "{}: {}", entry.key(), entry.value())?;
